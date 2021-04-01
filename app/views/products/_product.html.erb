@@ -1,0 +1,32 @@
+<div class="column">
+  <div class="card">
+    <%# <% if horse.image.present? %>
+    <div class="card-image">
+      <figure class="image">
+        <%= image_tag horse.image %>
+      </figure>
+    </div>
+    <% end %> %>
+    <div class="card-content">
+      <p class="title">
+        <% if show_link %>
+          <%= link_to product.product_name, product %>
+        <% else %>
+          <%= product.product_name %>
+        <% end %>
+      </p>
+      <p>Category: <%= link_to product.category.category_name, product.category %></p>
+    </div>
+    <footer class="card-footer">
+      <p class="card-footer-item">
+        Price: <br>$ <%= product.price %>
+      </p>
+      <p class="card-footer-item">
+        Stock: <br><%= product.stock %>
+      </p>
+      <p class="card-footer-item">
+        Description: <br><%= product.description %>
+      </p>
+    </footer>
+  </div>
+</div>
