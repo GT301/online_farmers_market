@@ -1,5 +1,7 @@
 <h3 class="title is-4">All Products</h3>
 
-<% @products.each do |product| %>
-  <p><%= link_to product.product_name, product %></p>
-<% end %>
+  <div class="columns is-multiline">
+    <%= render partial: 'product',
+               collection: @products,
+               locals: { show_link: true } %>
+  </div>
