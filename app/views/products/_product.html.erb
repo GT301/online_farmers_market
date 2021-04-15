@@ -9,17 +9,22 @@
           <%= product.product_name %>
         <% end %>
       </p>
-      <p>Category: <%= link_to product.category.category_name, product.category %></p>
+        <% if show_link %>
+          <p>Category: <%= link_to product.category.category_name, product.category %></p>
+        <% else %>
+          <p>Category: <%= link_to product.category.category_name, product.category %></p>
+          <p>Description: <br><%= product.description %></p>
+        <% end %>
     </div>
     <footer class="card-footer">
       <p class="card-footer-item">
-        Price: <br>$ <%= product.price %>
+        Price: <br><%= number_to_currency product.price %>
       </p>
       <p class="card-footer-item">
         Stock: <br><%= product.stock %>
       </p>
       <p class="card-footer-item">
-        Description: <br><%= product.description %>
+
       </p>
     </footer>
   </div>

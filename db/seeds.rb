@@ -1,8 +1,21 @@
 Product.destroy_all
 Category.destroy_all
 
-categ = Category.create(category_name: "Crops")
-prod = categ.products.create(product_name: "corn", price: 0.99, stock: 23)
+NUMBER_OF_CATEGORIES = 5
+PRODUCTS_PER_CATEGORY = 100
+
+NUMBER_OF_CATEGORIES.times do
+  category = Category.create(category_name: Faker::Food.unique.vegetables)
+
+  PRODUCTS_PER_CATEGORY.times do
+    product = category.products.create(
+      product_name: Faker::FunnyName.unique.name,
+      price:        rand(1.1..99.99),
+      stock:        rand(1..100),
+      description:  Faker::Food.description
+    )
+  end
+end
 
 puts "Created #{Category.count} categories."
 puts "Created #{Product.count} products."
