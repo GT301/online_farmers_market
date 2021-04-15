@@ -1,0 +1,32 @@
+<%= form_with(url: search_products_path, local: true, method: "get", class: 'mt-5 mb-5') do %>
+  <div class="field has-addons">
+    <div class="control">
+      <%= text_field_tag(:search_term, nil, class: 'input',
+                          placeholder: 'Search Products By Name or Description') %>
+    </div>
+    <div class="control">
+      <%= select_tag( :c_select,
+                      options_for_select(Category.order(:category_name).pluck(:category_name, :id) ,:selected =>params[:option]),
+
+                      class: "form-control custom-select" ,
+                      include_blank: true
+                    )%>
+
+
+
+
+
+      <%# <div class="select">
+        <select>
+          <option>--</option>
+          <% Category.all.each do |category| % >
+            <option><%= category.category_name % ></option>
+          <% end % >
+        </select>
+      </div> %>
+    </div>
+    <div class="control">
+      <%= submit_tag("Search", class: "button is-info") %>
+    </div>
+  </div>
+<% end %>
