@@ -1,6 +1,10 @@
 <div class="column">
   <div class="card">
-
+    <% if product.image.present? %>
+      <div class="card-image">
+        <p><%= image_tag product.image.variant(resize_to_limit: [285, 285]).processed  %></p>
+      </div>
+    <% end %>
     <div class="card-content">
       <p class="title">
         <% if show_link %>

@@ -10,10 +10,18 @@ NUMBER_OF_CATEGORIES.times do
   PRODUCTS_PER_CATEGORY.times do
     product = category.products.create(
       product_name: Faker::FunnyName.unique.name,
-      price:        rand(1.1..99.99),
+      price:        Faker::Commerce.price,
       stock:        rand(1..100),
       description:  Faker::Food.description
     )
+    query = URI.encode_www_form_component([product.product_name, category.category_name].join(","))
+
+    downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
+
+    product.image.attach(io:       downloaded_image,
+                         filename: "m-#{[product.product_name,
+                                         category.category_name].join('-')}.jpg")
+    sleep(0.5)
   end
 end
 
