@@ -1,4 +1,4 @@
-<div class="column">
+<aside class="mr-6 mb-5">
   <div class="card">
     <% if product.image.present? %>
       <p><%= image_tag product.image.variant(resize_to_limit: [285, 285]).processed  %></p>
@@ -30,4 +30,4 @@
       </p>
     </footer>
   </div>
-</div>
+</aside>
