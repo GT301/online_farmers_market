@@ -12,7 +12,7 @@ class CartController < ApplicationController
 
   # DELETE /cart/:id
   def destroy
-    # removes params[:id] from cart
+    logger.debug("Removing #{params[:id]} from the cart!")
     id = params[:id].to_i
     session[:shopping_cart].delete(id)
     product = Product.find(id)

@@ -18,6 +18,9 @@
     </header>
     <%= render partial: 'common/nav' %>
     <%= render partial: 'common/search_form' %>
+    <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

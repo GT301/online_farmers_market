@@ -1,4 +1,4 @@
-<aside class="mr-6 mb-5">
+<aside class="ml-6 mr-4 mb-5">
   <div class="card">
     <% if product.image.present? %>
       <p><%= image_tag product.image.variant(resize_to_limit: [285, 285]).processed  %></p>
@@ -26,9 +26,15 @@
         Stock: <br><%= product.stock %>
       </p>
     </footer>
-    <%= form_with url: cart_index_path, method: :post do %>
-      <%= hidden_field_tag(:id, product.id) %>
-      <%= button_tag 'Add to Cart' %>
+    <% if cart.include?(product) %>
+      <%= button_to cart_path(product), method: :delete do %>
+        Remove From Cart
+      <% end %>
+    <% else %>
+      <%= form_with url: cart_index_path, method: :post do %>
+        <%= hidden_field_tag(:id, product.id) %>
+        <%= button_tag 'Add to Cart' %>
+      <% end %>
     <% end %>
   </div>
 </aside>
