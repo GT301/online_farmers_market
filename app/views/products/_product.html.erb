@@ -25,9 +25,10 @@
       <p class="card-footer-item">
         Stock: <br><%= product.stock %>
       </p>
-      <p class="card-footer-item">
-
-      </p>
     </footer>
+    <%= form_with url: cart_index_path, method: :post do %>
+      <%= hidden_field_tag(:id, product.id) %>
+      <%= button_tag 'Add to Cart' %>
+    <% end %>
   </div>
 </aside>

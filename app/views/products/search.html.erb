@@ -1,10 +1,16 @@
-<p>
+<p class="mb-5">
   Found <%= pluralize(@products.size, 'result') %>
   for the search term "<%= params[:search_term] %>".
 </p>
 
 <div class="search-results columns is-multiline">
   <%= render partial: 'product',
-             collection: @products,
+             collection: @products.page(params[:page]),
              locals: { show_link: true } %>
+</div>
+
+<div class="columns">
+<div class="column"></div>
+<div class="column"><%= paginate @products.page(params[:page]) %></div>
+<div class="column"></div>
 </div>
