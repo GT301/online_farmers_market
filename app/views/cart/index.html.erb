@@ -1,0 +1,30 @@
+<h1>Shopping Cart</h1>
+
+<% if cart.present? %>
+  <table class="ml-5">
+    <tr>
+      <th>Items</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+    <% cart.each do |product| %>
+      <tr>
+        <td><%= product.product_name %></td>
+        <td>$<%= product.price %></td>
+        <td><%= @quantity = 1 %></td>
+        <td>
+          <%= link_to '➕', cart_path(product), method: :create %>
+          <%= link_to '➖', cart_path(product), method: :delete %>
+          <%= link_to '❌', cart_path(product), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>No items in your cart.</p>
+<% end %>
+
+<%= form_with url: checkout_create_path, remote: true do %>
+  <%= button_tag 'Check Out! 💳' %>
+<% end %>

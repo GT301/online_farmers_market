@@ -1,0 +1,7 @@
+<h3 class="title is-4">New Created</h3>
+
+<div class="columns is-multiline">
+  <%= render partial: 'products/product',
+             collection: @products,
+             locals: { show_link: true } %>
+</div>
