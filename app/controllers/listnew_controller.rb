@@ -3,7 +3,4 @@ class ListnewController < ApplicationController
     @products = Product.where("created_at > ?", 3.days.ago)
   end
 
-  def show
-
-  end
 end

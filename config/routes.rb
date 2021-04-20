@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :listnew, only: %i[index show]
+  resources :listnew, only: %i[index]
+  resources :newupdate, only: %i[index]
 
   resources :cart, only: %i[index create destroy]
   scope "/checkout" do
