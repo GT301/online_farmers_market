@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :cart, only: %i[create destroy]
+  resources :cart, only: %i[index create destroy]
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"
     get "success", to: "checkout#success", as: "checkout_success"
