@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show] do
     collection do
       get :search
+      # get :new
     end
   end
+
+  resources :listnew, only: %i[index show]
 
   resources :cart, only: %i[index create destroy]
   scope "/checkout" do
