@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  def index; end
+
   def create
     # Add param[:id] to the cart
 
@@ -7,7 +9,7 @@ class CartController < ApplicationController
     session[:shopping_cart] << id # pushes id onto the end of the array
     product = Product.find(id)
     flash[:notice] = "➕ #{product.product_name} added to cart."
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   # DELETE /cart/:id
@@ -17,6 +19,6 @@ class CartController < ApplicationController
     session[:shopping_cart].delete(id)
     product = Product.find(id)
     flash[:notice] = "➖ #{product.product_name} removed from cart."
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 end

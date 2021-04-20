@@ -2,9 +2,9 @@ class CheckoutController < ApplicationController
   def create
     # establish a connection with Stripe!
     # redirect the user back to a payment screen
-    product = Product.find(params[:product_id])
+    @product = Product.find(params[:product_id])
 
-    if product.nil?
+    if @product.nil?
       redirect_to root_path
       return
     end
@@ -17,14 +17,14 @@ class CheckoutController < ApplicationController
         {
           name:        product.product_name,
           description: product.description,
-          amount:      product.price,
+          amount:      100,
           currency:    "cad",
           quantity:    1
         },
         {
           name:        "GST",
           description: "Goods and Services Tax",
-          amount:      (product.price * 0.05).to_i,
+          amount:      100,
           currency:    "cad",
           quantity:    1
         }

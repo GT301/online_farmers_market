@@ -4,4 +4,11 @@
   <li><%= link_to "Categories", categories_path %></li>
   <li><%= link_to "Products", products_path %></li>
   <li><%= link_to "Admin", admin_root_path %></li>
+  <li>
+    <%= link_to "Cart", cart_index_path %>
+
+  </li>
+  <li><% if cart.present? %>
+      <sup><%= cart.size %></sup>
+    <% end %></li>
 </ul>
