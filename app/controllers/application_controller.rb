@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :initialize_session
+  before_action :initialize_session, :authenticate_user!
   helper_method :cart
 
   private
@@ -14,5 +14,14 @@ class ApplicationController < ActionController::Base
     # .find will take in a single value OR an array of values.
     # with an array it will bring back a collection of objects based on those PK id's!
     Product.find(session[:shopping_cart])
+  end
+
+  def update_allowed_parameters
+    devise_parameter_sanitizer.permit(:sign_up) do |u|
+      u.permit(:name, :province, :email, :password)
+    end
+    devise_parameter_sanitizer.permit(:account_update) do |u|
+      u.permit(:name, :province, :email, :password, :current_password)
+    end
   end
 end

@@ -1,4 +1,8 @@
-
+<p class="navbar-brand float-right ml-6">
+<% if user_signed_in? %>
+  Welcome back! <strong><%= current_user.email %></strong>.
+<% end %>
+</p>
 <ul class="ml-6 mr-5 menu-list navbar-brand">
   <li><%= link_to "Home", root_path %></li>
   <li><%= link_to "Categories", categories_path %></li>
@@ -14,4 +18,29 @@
   <li><% if cart.present? %>
       <sup><%= cart.size %></sup>
     <% end %></li>
+
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+  <li class="mr-5"></li>
+
+  <li>
+    <% if user_signed_in? %>
+      <%= link_to "Edit profile", edit_user_registration_path, :class => 'navbar-link' %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %>
+    <% end %>
+  </li>
+
+  <li>
+  <% if user_signed_in? %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+    <% end %>
+  </li>
+
 </ul>
