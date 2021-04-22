@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.order(:product_name).page(params[:page])
-    @nps = Product.where("created_at > ?", 3.days.ago)
   end
 
   def show
@@ -23,9 +22,5 @@ class ProductsController < ApplicationController
                          .where("category_id == ?", params[:c_select].to_s)
 
                 end
-  end
-
-  def new
-    @products = Product.where("created_at > ?", 3.days.ago)
   end
 end

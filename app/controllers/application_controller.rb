@@ -1,22 +1,23 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :initialize_session, :authenticate_user!
+  before_action :authenticate_user!
+  before_action :initialize_session
   before_action :update_allowed_parameters, if: :devise_controller?
   helper_method :cart
 
   private
 
   def initialize_session
-    # default the shopping cart session to an empty array (if it's nil)
-    session[:shopping_cart] ||= []
+    # default the shopping cart session to an empty hash (if it's nil)
+    session[:shopping_cart] ||= {}
     # an array of product IDs!
   end
 
   def cart
     # .find will take in a single value OR an array of values.
     # with an array it will bring back a collection of objects based on those PK id's!
-    Product.find(session[:shopping_cart])
+    Product.find(session[:shopping_cart].keys)
   end
 
   def update_allowed_parameters

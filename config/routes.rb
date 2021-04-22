@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :listnew, only: %i[index]
   resources :newupdate, only: %i[index]
 
-  resources :cart, only: %i[index create destroy]
+  resources :cart, only: %i[index create destroy update]
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"
     get "success", to: "checkout#success", as: "checkout_success"

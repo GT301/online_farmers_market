@@ -12,10 +12,17 @@
       <tr>
         <td><%= product.product_name %></td>
         <td>$<%= product.price %></td>
-        <td><%= @quantity = 1 %></td>
+        <td><%= session[:shopping_cart][product.id.to_s] %></td>
         <td>
-          <%= link_to '➕', cart_path(product), method: :create %>
-          <%= link_to '➖', cart_path(product), method: :delete %>
+          <div>
+            <%= form_with url: cart_index_path, method: :post do %>
+              <%= hidden_field_tag(:id, product.id)%>
+              <%= button_tag '➕'%>
+            <% end %>
+            <%= link_to '➖',cart_path(product.id), method: :patch %>
+          </div>
+        </td>
+        <td>
           <%= link_to '❌', cart_path(product), method: :delete %>
         </td>
       </tr>
