@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_031220) do
+ActiveRecord::Schema.define(version: 2021_04_22_051441) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -150,8 +150,9 @@ ActiveRecord::Schema.define(version: 2021_04_22_031220) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "surname"
-    t.integer "province_id"
+    t.integer "province_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -162,4 +163,5 @@ ActiveRecord::Schema.define(version: 2021_04_22_031220) do
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "customers"
   add_foreign_key "products", "categories"
+  add_foreign_key "users", "provinces"
 end
