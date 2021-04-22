@@ -11,7 +11,7 @@ class CartController < ApplicationController
       session[:shopping_cart][id] = 1
     end
     product = Product.find(id.to_i)
-    flash[:notice] = "➕ #{product.product_name} added to cart."
+    flash[:notice] = "➕ 1 #{product.product_name} added to cart."
     redirect_back(fallback_location: root_path)
   end
 
@@ -21,7 +21,7 @@ class CartController < ApplicationController
     id = params[:id]
     session[:shopping_cart].delete(id)
     product = Product.find(id.to_i)
-    flash[:notice] = "➖ #{product.product_name} removed from cart."
+    flash[:notice] = "➖ 1 #{product.product_name} removed from cart."
     redirect_back(fallback_location: root_path)
   end
 
@@ -33,7 +33,7 @@ class CartController < ApplicationController
       session[:shopping_cart][id] -= 1
     end
     product = Product.find(id.to_i)
-    flash[:notice] = "<< #{product.product_name} >> removed from cart."
+    flash[:notice] = "➖ 1 #{product.product_name} removed from cart."
     redirect_back(fallback_location: root_path)
   end
 end

@@ -27,13 +27,13 @@
       </p>
     </footer>
     <% if cart.include?(product) %>
-      <%= button_to cart_path(product), method: :delete do %>
+      <%= button_to cart_path(product), method: :delete, class: 'button is-link' do %>
         Remove From Cart
       <% end %>
     <% else %>
       <%= form_with url: cart_index_path, method: :post do %>
         <%= hidden_field_tag(:id, product.id) %>
-        <%= button_tag 'Add to Cart' %>
+        <%= button_tag 'Add to Cart', class: 'button is-link' %>
       <% end %>
     <% end %>
   </div>

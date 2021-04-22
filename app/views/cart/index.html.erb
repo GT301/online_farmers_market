@@ -1,7 +1,7 @@
-<h1>Shopping Cart</h1>
+<h1 class="ml-6 is-size-3">Shopping Cart</h1>
 
 <% if cart.present? %>
-  <table class="ml-5">
+  <table class="ml-5 table is-striped">
     <tr>
       <th>Items</th>
       <th>Price</th>
@@ -14,13 +14,13 @@
         <td>$<%= product.price %></td>
         <td><%= session[:shopping_cart][product.id.to_s] %></td>
         <td>
-          <div>
-            <%= form_with url: cart_index_path, method: :post do %>
-              <%= hidden_field_tag(:id, product.id)%>
-              <%= button_tag '➕'%>
-            <% end %>
-            <%= link_to '➖',cart_path(product.id), method: :patch %>
-          </div>
+          <%= form_with url: cart_index_path, method: :post do %>
+            <%= hidden_field_tag(:id, product.id)%>
+            <%= button_tag '➕'%>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to '➖',cart_path(product.id), method: :patch %>
         </td>
         <td>
           <%= link_to '❌', cart_path(product), method: :delete %>
@@ -33,5 +33,5 @@
 <% end %>
 
 <%= form_with url: checkout_create_path, remote: true do %>
-  <%= button_tag 'Check Out! 💳' %>
+  <%= button_tag 'Check Out! 💳', class: 'button is-link' %>
 <% end %>
