@@ -32,6 +32,36 @@
   <p>No items in your cart.</p>
 <% end %>
 
+
+<table class="ml-5 table is-striped">
+  <tr>
+    <td><strong>SubTotal:</strong></td>
+    <td><%= number_to_currency subtotal %></td>
+  </tr>
+  <tr>
+    <td><strong>PST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.pst %></td>
+  </tr>
+  <tr>
+    <td><strong>GST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.gst %></td>
+  </tr>
+  <tr>
+    <td><strong>HST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.hst %></td>
+  </tr>
+  <tr>
+    <td><strong>Total Price:</strong></td>
+    <td><%= number_to_currency (subtotal * (1 + current_user.province.total_tax_rate)) %></td>
+  </tr>
+</table>
+
+
+
+
+
+
+
 <%= form_with url: checkout_create_path, remote: true do %>
-  <%= button_tag 'Check Out! 💳', class: 'button is-link' %>
+  <%= button_tag 'Check Out! 💳', class: 'button is-link ml-6' %>
 <% end %>
