@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initialize_session
   before_action :update_allowed_parameters, if: :devise_controller?
-  helper_method :cart, :subtotal, :set_province_if_nil
+  helper_method :cart, :subtotal
 
   private
 
@@ -38,9 +38,5 @@ class ApplicationController < ActionController::Base
     end
 
     subtotal
-  end
-
-  def set_province_if_nil
-    redirect_to edit_user_registration_path if current_user.province_id.nil?
   end
 end
