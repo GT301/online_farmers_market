@@ -66,3 +66,5 @@ gem "image_processing", "~> 1.0"
 
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'stripe'
+
+gem 'devise'

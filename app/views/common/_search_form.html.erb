@@ -4,11 +4,11 @@
       <%= text_field_tag(:search_term, nil, class: 'input',
                           placeholder: 'Search Products By Name or Description') %>
     </div>
-    <div class="control">
+    <div class="dropdown">
       <%= select_tag( :c_select,
                       options_for_select(Category.order(:category_name).pluck(:category_name, :id) ,:selected =>params[:option]),
 
-                      class: "form-control custom-select" ,
+                      class: "dropdown-content" ,
                       include_blank: true
                     )%>
 

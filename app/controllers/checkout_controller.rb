@@ -2,46 +2,53 @@ class CheckoutController < ApplicationController
   def create
     # establish a connection with Stripe!
     # redirect the user back to a payment screen
-    @product = Product.find(params[:product_id])
+    products = Product.find(session[:shopping_cart].keys)
 
-    if @product.nil?
+    if products.nil?
       redirect_to root_path
       return
     end
 
+    line_items = []
+
+    products.each do |p|
+      line_items.push(
+        {
+          name:     p.product_name,
+          amount:   (p.price * 100).to_i,
+          currency: "cad",
+          quantity: session[:shopping_cart][p.id.to_s]
+        }
+      )
+    end
+
+    line_items.push(
+      {
+        name:     "Tax",
+        amount:   (subtotal * current_user.province.total_tax_rate).to_i,
+        currency: "cad",
+        quantity: 1
+      }
+    )
+
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
-      success_url:          checkout_success_url + "?sessoin_id={CHECKOUT_SESSION_ID}",
+      success_url:          "#{checkout_success_url}?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:           checkout_cancel_url,
-      line_items:           [
-        {
-          name:        product.product_name,
-          description: product.description,
-          amount:      100,
-          currency:    "cad",
-          quantity:    1
-        },
-        {
-          name:        "GST",
-          description: "Goods and Services Tax",
-          amount:      100,
-          currency:    "cad",
-          quantity:    1
-        }
-      ]
+      line_items:           line_items
     )
 
     # @session.id <== is autopopulated from this process!
 
     respond_to do |format|
-      format.js # render app/views/checkout/create.js.erb
+      format.html # render app/views/checkout/create.js.erb
     end
   end
 
   def success
     # We took the customer's money!
-    @session = Stripe::Checkout::Session.retrive(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrive(@session.payment_intent)
+    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
   end
 
   def cancel

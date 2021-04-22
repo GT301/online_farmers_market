@@ -1,7 +1,7 @@
-<h1>Shopping Cart</h1>
+<h1 class="ml-6 is-size-3">Shopping Cart</h1>
 
 <% if cart.present? %>
-  <table class="ml-5">
+  <table class="ml-5 table is-striped">
     <tr>
       <th>Items</th>
       <th>Price</th>
@@ -12,10 +12,17 @@
       <tr>
         <td><%= product.product_name %></td>
         <td>$<%= product.price %></td>
-        <td><%= @quantity = 1 %></td>
+        <td><%= session[:shopping_cart][product.id.to_s] %></td>
         <td>
-          <%= link_to '➕', cart_path(product), method: :create %>
-          <%= link_to '➖', cart_path(product), method: :delete %>
+          <%= form_with url: cart_index_path, method: :post do %>
+            <%= hidden_field_tag(:id, product.id)%>
+            <%= button_tag '➕'%>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to '➖',cart_path(product.id), method: :patch %>
+        </td>
+        <td>
           <%= link_to '❌', cart_path(product), method: :delete %>
         </td>
       </tr>
@@ -25,6 +32,39 @@
   <p>No items in your cart.</p>
 <% end %>
 
+<div calss="ml-2">
+  You may see that the tax below are not correct.
+  Use the "Edit profile" button on the top-right to change the province you belong to.
+</div>
+<table class="ml-5 table is-striped">
+  <tr>
+    <td><strong>SubTotal:</strong></td>
+    <td><%= number_to_currency subtotal %></td>
+  </tr>
+  <tr>
+    <td><strong>PST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.pst %></td>
+  </tr>
+  <tr>
+    <td><strong>GST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.gst %></td>
+  </tr>
+  <tr>
+    <td><strong>HST:</strong></td>
+    <td><%= number_to_currency subtotal * current_user.province.hst %></td>
+  </tr>
+  <tr>
+    <td><strong>Total Price:</strong></td>
+    <td><%= number_to_currency (subtotal * (1 + current_user.province.total_tax_rate)) %></td>
+  </tr>
+</table>
+
+
+
+
+
+
+
 <%= form_with url: checkout_create_path, remote: true do %>
-  <%= button_tag 'Check Out! 💳' %>
+  <%= button_tag 'Check Out! 💳', class: 'button is-link ml-6' %>
 <% end %>
