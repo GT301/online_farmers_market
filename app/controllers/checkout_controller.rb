@@ -9,6 +9,20 @@ class CheckoutController < ApplicationController
       return
     end
 
+    order = Order.create(
+      order_status: "new",
+      total_price:  subtotal.to_d,
+      user:         User.find(current_user.id),
+      province:     User.find(current_user.id).province,
+      tax:          subtotal * User.find(current_user.id).province.total_tax_rate
+    )
+
+    if order.save
+      logger.debug(" Successfull: #{order}")
+    else
+      logger.debug(" Failure: #{order}")
+    end
+
     line_items = []
 
     products.each do |p|
@@ -25,7 +39,7 @@ class CheckoutController < ApplicationController
     line_items.push(
       {
         name:     "Tax",
-        amount:   (subtotal * current_user.province.total_tax_rate).to_i,
+        amount:   (subtotal * current_user.province.total_tax_rate * 100).to_i,
         currency: "cad",
         quantity: 1
       }
